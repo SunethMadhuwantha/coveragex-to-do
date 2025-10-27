@@ -1,34 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export default function TaskForm({ onAdd }) {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState(""); // validation message
 
-  function submit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title.trim()) {
-      alert('Title required');
+    if (!title.trim() || !description.trim()) {
+      setError("Both Title and Description are required!");
       return;
     }
     onAdd({ title, description });
-    setTitle('');
-    setDescription('');
-  }
+    setTitle("");
+    setDescription("");
+    setError(""); // clear error 
+  };
 
   return (
-    <div className="card">
-      <h2>Add Task</h2>
-      <form onSubmit={submit}>
-        <div>
-          <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Title" />
-        </div>
-        <div>
-          <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" />
-        </div>
-        <div>
-          <button type="submit">Add</button>
-        </div>
-      </form>
-    </div>
-  )
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <textarea
+        placeholder="Description"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      {error && <div className="error-message">{error}</div>}
+      <button type="submit">Add</button>
+    </form>
+  );
 }

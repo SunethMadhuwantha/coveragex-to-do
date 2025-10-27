@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS "task" (
   created_at TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT now()
 );
 
--- Sample data (optional)
+-- Sample data 
 INSERT INTO "task"(title, description)
 VALUES
 ('Sample task 1', 'This is a sample'),
